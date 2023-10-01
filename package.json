@@ -1,0 +1,31 @@
+{
+  "name": "clubapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "firebase": "^10.4.0",
+    "next": "latest_version",
+    "postcss": "^8.4.31",
+    "react": "latest_version",
+    "react-dom": "latest_version",
+    "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/firebase": "^3.2.1",
+    "@types/node": "^20.7.2",
+    "@types/react": "^18.2.23",
+    "typescript": "^5.2.2"
+  }
+}

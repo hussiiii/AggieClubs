@@ -1,0 +1,1 @@
+Now that we have registration and login in place, we can move forward with establishing a session for the user upon successful login. This will allow us to recognize authenticated users and grant them access to specific functionalities (like adding clubs or events).
