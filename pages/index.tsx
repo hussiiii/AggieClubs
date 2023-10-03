@@ -1,8 +1,7 @@
 // index.tsx
 
 import Layout from '../components/Layout';
-import { GetStaticProps } from 'next';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClubCard from '../components/ClubCard';
 
 type Club = {
@@ -12,12 +11,18 @@ type Club = {
   profilePicture: string;
 };
 
-type HomeProps = {
-  clubs: Club[];
-};
+const Home: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [clubs, setClubs] = useState<Club[]>([]);
 
-const Home: React.FC<HomeProps> = ({ clubs }) => {
-  const [searchTerm, setSearchTerm] = useState(''); //use useState when you want to retain memory through renders. '' is the init value, searchTerm is the variable who's value we are remembering 
+  useEffect(() => {
+    // Fetch clubs data when the component mounts
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clubs`)
+      .then(res => res.json())
+      .then(data => setClubs(data))
+      .catch(error => console.error("Failed to fetch clubs:", error));
+  }, []);
+
   const filteredClubs = clubs.filter(club => club.name.toLowerCase().includes(searchTerm.toLowerCase())); 
 
   return (
@@ -50,26 +55,5 @@ const Home: React.FC<HomeProps> = ({ clubs }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clubs`);
-
-  // Debugging: Log the raw text response from the server before parsing it
-  const text = await response.text();
-  console.log("Raw Response:", text);
-
-  // Now, we'll try to parse the text into JSON
-  let clubs: Club[] = [];
-  try {
-    clubs = JSON.parse(text);
-  } catch (error) {
-    console.error("Failed to parse the response:", error);
-  }
-
-  return {
-    props: {
-      clubs,
-    },
-  };
-};
 
 export default Home;
