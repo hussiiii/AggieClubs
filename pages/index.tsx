@@ -50,9 +50,20 @@ const Home: React.FC<HomeProps> = ({ clubs }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => { //getStaticProps is a Nextjs thing that fetches & displays stuff in API folder 
+export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clubs`);
-  const clubs: Club[] = await response.json();
+
+  // Debugging: Log the raw text response from the server before parsing it
+  const text = await response.text();
+  console.log("Raw Response:", text);
+
+  // Now, we'll try to parse the text into JSON
+  let clubs: Club[] = [];
+  try {
+    clubs = JSON.parse(text);
+  } catch (error) {
+    console.error("Failed to parse the response:", error);
+  }
 
   return {
     props: {
