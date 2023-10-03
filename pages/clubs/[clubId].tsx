@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import firebase from '../../firebase.js'; 
 import EventCard from '../../components/EventCard';
 
-
 type Club = {
   id: string;
   name: string;
@@ -25,6 +24,7 @@ type Event = {
 const ClubDetails: React.FC = () => {
   const router = useRouter();
   const { clubId } = router.query;
+  console.log("Current clubId:", clubId);
 
   const [club, setClub] = useState<Club | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
@@ -48,7 +48,10 @@ const ClubDetails: React.FC = () => {
       // Fetch club details
       fetch(`/api/clubs/${clubId}`)
         .then((response) => response.json())
-        .then((data) => setClub(data));
+        .then((data) => {
+          console.log("Fetched club data:", data);
+          setClub(data);
+        });
 
       // Fetch events for the club
       fetch(`/api/clubs/${clubId}/events`)
@@ -56,6 +59,25 @@ const ClubDetails: React.FC = () => {
         .then((data) => setEvents(data));
     }
   }, [clubId]);
+
+  const handleDeleteClub = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this club?");
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/api/clubs/${clubId}/delete`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          // Redirect to the homepage after successful deletion
+          router.push('/');
+        } else {
+          console.error('Failed to delete the club');
+        }
+      } catch (error) {
+        console.error('An error occurred while deleting the club:', error);
+      }
+    }
+  };
 
   return (
     <Layout>
@@ -70,19 +92,24 @@ const ClubDetails: React.FC = () => {
       <h2 className="text-center my-6 text-cyan-500 text-xl">Upcoming Events</h2>
       
       <ul>
-      {events.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
+        {events.map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))}
       </ul>
-
 
       {isAuthenticated && (
         <div className="mt-6 text-center">
           <button
             onClick={() => router.push(`/clubs/${clubId}/register-event`)}
-            className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mr-2"
           >
             Add Event
+          </button>
+          <button
+            onClick={handleDeleteClub}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Delete Club
           </button>
         </div>
       )}

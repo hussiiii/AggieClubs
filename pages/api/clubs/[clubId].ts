@@ -9,7 +9,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Ensure that clubId is a string
       const clubIdString = Array.isArray(clubId) ? clubId[0] : clubId;
 
+      // debug 
+      console.log("Fetching club with ID:", clubIdString);
+
       const clubDoc = await db.collection('clubs').doc(clubIdString).get();
+
+      // debug 
+      console.log("Full clubDoc:", clubDoc);
+      console.log("Club document exists:", clubDoc.exists);
+      console.log("Club document data:", clubDoc.data());
 
       if (!clubDoc.exists) {
         return res.status(404).json({ error: 'Club not found' });
@@ -17,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       res.status(200).json(clubDoc.data());
     } catch (error) {
+      console.error("Error fetching club details:", error); // debug 
       res.status(500).json({ error: 'Unable to fetch club details' });
     }
   } else {

@@ -1,19 +1,24 @@
 import { db } from '../../../firebase.js';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       const { name, description, profilePicture } = req.body;
-      const newClub = {
-        id: new Date().toISOString(),
+
+      // Create a new club document in Firestore and get the reference
+      const clubDocRef = await db.collection('clubs').add({
         name,
         description,
         profilePicture
-      };
+      });
 
-      const clubDocRef = await db.collection('clubs').add(newClub);
+      // Update the club document to set its id field to match the Firestore document ID
+      await clubDocRef.update({
+        id: clubDocRef.id
+      });
+
+      // Fetch the updated club document
       const clubDoc = await clubDocRef.get();
 
       res.status(201).json(clubDoc.data());

@@ -2,8 +2,11 @@
 
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
+import { useRouter } from 'next/router'; //for redirecting user to diff page 
 
 const Register = () => {
+  const router = useRouter(); //fore redirecting user to diff page 
+
   const [clubName, setClubName] = useState('');
   const [description, setDescription] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
@@ -25,11 +28,11 @@ const Register = () => {
       });
   
       if (response.ok) {
-        // Maybe reset the form or redirect the user to the homepage
         alert('Club registered successfully!');
         setClubName('');
         setDescription('');
         setProfilePicture('');
+        router.push('/');
       } else {
         const responseData = await response.json();
         alert(responseData.error || 'Failed to register the club');
