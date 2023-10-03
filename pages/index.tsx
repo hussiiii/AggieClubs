@@ -51,7 +51,7 @@ const Home: React.FC<HomeProps> = ({ clubs }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => { //getStaticProps is a Nextjs thing that fetches & displays stuff in API folder 
-  const response = await fetch('http://localhost:3000/api/clubs');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clubs`);
   const clubs: Club[] = await response.json();
 
   return {
