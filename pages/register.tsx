@@ -75,7 +75,7 @@ const Register = () => {
 
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePicture">
-            Profile Picture URL
+            Profile Picture URL (right click image, then 'copy image address')
           </label>
           <input
             type="text"
