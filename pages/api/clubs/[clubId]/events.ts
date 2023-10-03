@@ -1,21 +1,14 @@
+import { db } from '../../../../firebase.js';
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { clubId } = req.query;
 
   if (req.method === 'POST') {
     try {
       const { eventName, description, eventDate, picture, location } = req.body;
-
-      // Read the events.json file
-      const eventsFilePath = path.join(process.cwd(), 'data', 'events.json');
-      const eventData = JSON.parse(fs.readFileSync(eventsFilePath, 'utf8'));
-
-      // Add new event
       const newEvent = {
-        id: new Date().toISOString(),
         clubId,
         eventName,
         description,
@@ -23,20 +16,18 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         picture,
         location
       };
-      eventData.push(newEvent);
 
-      // Write back to the file
-      fs.writeFileSync(eventsFilePath, JSON.stringify(eventData));
+      const eventDocRef = await db.collection('events').add(newEvent);
+      const eventDoc = await eventDocRef.get();
 
-      res.status(201).json(newEvent);
+      res.status(201).json(eventDoc.data());
     } catch (error) {
       res.status(500).json({ error: 'Unable to post event' });
     }
   } else if (req.method === 'GET') {
     try {
-      const eventsFilePath = path.join(process.cwd(), 'data', 'events.json');
-      const eventData = JSON.parse(fs.readFileSync(eventsFilePath, 'utf8'));
-      const clubEvents = eventData.filter((event: any) => event.clubId === clubId);
+      const eventsSnapshot = await db.collection('events').where('clubId', '==', clubId).get();
+      const clubEvents = eventsSnapshot.docs.map(doc => doc.data());
       res.status(200).json(clubEvents);
     } catch (error) {
       res.status(500).json({ error: 'Unable to fetch events' });

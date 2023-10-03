@@ -1,29 +1,22 @@
+import { db } from '../../../firebase.js';
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       const { name, description, profilePicture } = req.body;
-
-      // Read the clubs.json file
-      const clubsFilePath = path.join(process.cwd(), 'data', 'clubs.json');
-      const clubsData = JSON.parse(fs.readFileSync(clubsFilePath, 'utf8'));
-
-      // Add new club
       const newClub = {
         id: new Date().toISOString(),
         name,
         description,
         profilePicture
       };
-      clubsData.push(newClub);
 
-      // Write back to the file
-      fs.writeFileSync(clubsFilePath, JSON.stringify(clubsData));
+      const clubDocRef = await db.collection('clubs').add(newClub);
+      const clubDoc = await clubDocRef.get();
 
-      res.status(201).json(newClub);
+      res.status(201).json(clubDoc.data());
     } catch (error) {
       res.status(500).json({ error: 'Unable to register club' });
     }

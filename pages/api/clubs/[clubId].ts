@@ -1,21 +1,21 @@
+import { db } from '../../../firebase.js';
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
       const { clubId } = req.query;
 
-      const clubsFilePath = path.join(process.cwd(), 'data', 'clubs.json');
-      const clubsData = JSON.parse(fs.readFileSync(clubsFilePath, 'utf8'));
-      const club = clubsData.find((c: any) => c.id === clubId);
+      // Ensure that clubId is a string
+      const clubIdString = Array.isArray(clubId) ? clubId[0] : clubId;
 
-      if (!club) {
+      const clubDoc = await db.collection('clubs').doc(clubIdString).get();
+
+      if (!clubDoc.exists) {
         return res.status(404).json({ error: 'Club not found' });
       }
 
-      res.status(200).json(club);
+      res.status(200).json(clubDoc.data());
     } catch (error) {
       res.status(500).json({ error: 'Unable to fetch club details' });
     }
