@@ -3,6 +3,7 @@
 import Layout from '../components/Layout';
 import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
+import ClubCard from '../components/ClubCard';
 
 type Club = {
   id: string;
@@ -16,7 +17,7 @@ type HomeProps = {
 };
 
 const Home: React.FC<HomeProps> = ({ clubs }) => {
-  const [searchTerm, setSearchTerm] = useState(''); // State to manage the search term
+  const [searchTerm, setSearchTerm] = useState(''); //use useState when you want to retain memory through renders. '' is the init value, searchTerm is the variable who's value we are remembering 
   const filteredClubs = clubs.filter(club => club.name.toLowerCase().includes(searchTerm.toLowerCase())); 
 
   return (
@@ -29,7 +30,7 @@ const Home: React.FC<HomeProps> = ({ clubs }) => {
         </p>
         <p className="text-center text-gray-600 text-xl mb-8">(Please read the README.md file or watch the mp4 video to see how this fulfills the take-home requirements)</p>
         <div className="text-center">
-        <input
+        <input //search bar 
           type="text"
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
@@ -40,21 +41,16 @@ const Home: React.FC<HomeProps> = ({ clubs }) => {
       </div>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredClubs.map((club) => (
-          <li key={club.id} className="p-6 border rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 bg-white">
-            <a href={`/clubs/${club.id}`} className="block hover:text-cyan-500">
-              <img src={club.profilePicture || 'https://via.placeholder.com/150'} alt={club.name} className="w-full h-48 object-cover mb-4 rounded"/>
-              <h3 className="text-xl font-bold mb-2">{club.name}</h3>
-              <p className="text-sm">{club.description}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {filteredClubs.map((club) => (
+        <ClubCard key={club.id} club={club} />
+      ))}
+    </ul>
+
     </Layout>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => { //getStaticProps is a Nextjs thing that fetches & displays stuff in API folder 
   const response = await fetch('http://localhost:3000/api/clubs');
   const clubs: Club[] = await response.json();
 

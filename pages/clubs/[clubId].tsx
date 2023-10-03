@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
-import firebase from '../../firebase.js'; // Adjust the path to your firebase.js file if needed
+import firebase from '../../firebase.js'; 
+import EventCard from '../../components/EventCard';
+
 
 type Club = {
   id: string;
@@ -66,16 +68,13 @@ const ClubDetails: React.FC = () => {
       )}
 
       <h2 className="text-center my-6 text-cyan-500 text-xl">Upcoming Events</h2>
+      
       <ul>
-        {events.map((event) => (
-          <li key={event.id} className="mb-4 p-4 border rounded shadow">
-            <h3 className="text-xl mb-2">{event.eventName}</h3>
-            <p>{event.description}</p>
-            <p className="text-gray-500">{event.location}</p>
-            <p className="mt-2 text-gray-500">{event.eventDate}</p>
-          </li>
-        ))}
+      {events.map((event) => (
+        <EventCard key={event.id} event={event} />
+      ))}
       </ul>
+
 
       {isAuthenticated && (
         <div className="mt-6 text-center">
