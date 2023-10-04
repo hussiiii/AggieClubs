@@ -10,9 +10,7 @@ While you're at the homescreen, feel free to check out some of the sample clubs 
 may have. Since you're signed in, you'll have the ability to not only register clubs, but also add events to clubs, resolve events, and also delete a club
 and all its contents. You can also search for a specific club using the search bar.
 
-```dif
-- If for any reason the clubs aren't showing up, just refresh the page.
-```
+If for any reason the clubs aren't showing up, just refresh the page.
 
 # How this fulfils the take-home requirements 
 
