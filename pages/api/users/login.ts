@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { username, password } = req.body;
 
   try {
-    // Use Firebase authentication to verify the user's credentials
+    // Firebase auth to handle user creds
     const userCredential = await firebase.auth().signInWithEmailAndPassword(username, password);
     const user = userCredential.user;
 

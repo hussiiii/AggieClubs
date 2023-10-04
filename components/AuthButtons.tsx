@@ -11,7 +11,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ isAuthenticated }) => {
   return (
     //these are fragments: used when u wanna group stuff together (bc usually you can only return one thing, else you need to use a div or smth)
     <> 
-      {!isAuthenticated ? ( //if not authernticated show these buttons 
+      {!isAuthenticated ? ( //if not authenticated, show these buttons 
         <>
           <Link href="/signin" passHref>
             <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">Sign In</button>

@@ -6,14 +6,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const { name, description, profilePicture } = req.body;
 
-      // Create a new club document in Firestore and get the reference
+      // Create a new club document in Firestore & get ref
       const clubDocRef = await db.collection('clubs').add({
         name,
         description,
         profilePicture
       });
 
-      // Update the club document to set its id field to match the Firestore document ID
+      // Update the club document to set its id field to match the Firestore doc ID (dumb)
       await clubDocRef.update({
         id: clubDocRef.id
       });

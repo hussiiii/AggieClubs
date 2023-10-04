@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       res.status(200).json(clubDoc.data());
     } catch (error) {
-      console.error("Error fetching club details:", error); // debug 
+      console.error("Error fetching club details:", error); // debug why tf it not working
       res.status(500).json({ error: 'Unable to fetch club details' });
     }
   } else {

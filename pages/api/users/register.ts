@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import firebase from '../../../firebase.js'; // assuming you set up Firebase in a file at this path
+import firebase from '../../../firebase.js';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       const { username, password } = req.body;
 
-      // Use Firebase authentication to create a new user
+      // Use Firebase auth to create a new user 
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(username, password);
       const user = userCredential.user;
 

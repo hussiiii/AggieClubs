@@ -91,8 +91,8 @@ const RegisterEvent: React.FC = () => {
             <input
                 type="text"
                 id="location"
-                value={location} // You'll need to create this state variable
-                onChange={(e) => setLocation(e.target.value)} // And this handler
+                value={location}
+                onChange={(e) => setLocation(e.target.value)} 
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
         </div>

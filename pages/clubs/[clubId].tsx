@@ -12,7 +12,7 @@ type Club = {
 };
 
 type Event = {
-  id: string;
+  eventId: string;
   clubId: string;
   eventName: string;
   description: string;
@@ -39,8 +39,7 @@ const ClubDetails: React.FC = () => {
       }
     });
 
-    // This will unsubscribe from the listener when the component is unmounted
-    return () => unsubscribe();
+    return () => unsubscribe(); //turn off the doorbell 
   }, []);
 
   useEffect(() => {
@@ -93,7 +92,7 @@ const ClubDetails: React.FC = () => {
       
       <ul>
         {events.map((event) => (
-          <EventCard key={event.id} event={event} />
+          <EventCard key={event.eventId} event={event} isAuthenticated={isAuthenticated} />
         ))}
       </ul>
 

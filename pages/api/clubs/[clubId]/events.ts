@@ -1,7 +1,6 @@
 import { db } from '../../../../firebase.js';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { clubId } = req.query;
 
@@ -27,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if (req.method === 'GET') {
     try {
       const eventsSnapshot = await db.collection('events').where('clubId', '==', clubId).get();
-      const clubEvents = eventsSnapshot.docs.map(doc => doc.data());
+      const clubEvents = eventsSnapshot.docs.map(doc => ({ ...doc.data(), eventId: doc.id }));
       res.status(200).json(clubEvents);
     } catch (error) {
       res.status(500).json({ error: 'Unable to fetch events' });
