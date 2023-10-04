@@ -2,7 +2,7 @@
 Welcome to my AggieWorks take-home, AggieClubs, a demo full-stack web app centered around searching for &amp; discovering active clubs at UC Davis! 
 
 # How it works 
-You can start by navigating to https://aggie-clubs.vercel.app/ and pressing the Sign Up button in the top right (enter and email/password combo). 
+You can start by navigating to https://aggie-clubs.vercel.app/ and pressing the Sign Up button in the top right (enter any email/password combo). 
 Once you're registered, you'll now have access to the Register Club button at the top, where you will be redirected to a form where you can fill out 
 details of your club, and then it'll be added to the list in the home screen! 
 
@@ -10,7 +10,9 @@ While you're at the homescreen, feel free to check out some of the sample clubs 
 may have. Since you're signed in, you'll have the ability to not only register clubs, but also add events to clubs, resolve events, and also delete a club
 and all its contents. You can also search for a specific club using the search bar.
 
-If for any reason the clubs aren't showing up, just refresh the page. 
+```dif
+- If for any reason the clubs aren't showing up, just refresh the page.
+```
 
 # How this fulfils the take-home requirements 
 
@@ -49,3 +51,11 @@ If for any reason the clubs aren't showing up, just refresh the page.
 - As of right now, everyone who is signed in has the ability to register clubs, delete any club, and add/resolve events to any club. But ideally, only people who made the club should have the
   ability to add/resolve events and delete that club
 - The codebase is a mess and I still don't fully understand much of it
+
+
+# Oh wow, a club app... how original 
+Yeah I know, this isn't the most creative idea in the world, but actually this wasn't my first idea. I had a different idea initially (my crackthecode repo), and 
+just jumped straight into it. I got stuck in the middle, and out of frustration just scrapped the whole thing and started from scratch, this time with a different 
+idea in mind. Got stuck again, scrapped it, came up with a new idea, and tried again. This whole process happened about 4 times I think before I finally settled on
+something a little simpler than my other ideas, a Club App, and with this idea I was actually able to progres farther than any of my previous attempts. Again, since
+this was my first time using a lot of this stuff, I probably shouldn't have jumped into doing something so ambitious the first time around, but I'm glad I did because I learned a lot from it. My original idea WILL exist someday though, I'll be back and try again later for sure. 
