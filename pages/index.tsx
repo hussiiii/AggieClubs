@@ -38,7 +38,7 @@ const Home: React.FC = () => {
         <p className="text-center text-gray-600 text-xl mb-8">
           Discover the most popular student-run clubs at UC Davis. Join a community, pursue a hobby, or simply explore what's out there.
         </p>
-        <p className="text-center text-gray-600 text-xl mb-8">(Please read the README.md file or watch the mp4 video to see how this fulfills the take-home requirements)</p>
+        <p className="text-center text-gray-600 text-xl mb-8">(Please read the README.md file for how to use & how this fulfills the take-home reqs)</p>
         <div className="text-center">
         <input //search bar 
           type="text"
