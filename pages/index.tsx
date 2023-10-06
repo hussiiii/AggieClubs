@@ -1,5 +1,3 @@
-// index.tsx
-
 import Layout from '../components/Layout';
 import React, { useState, useEffect } from 'react';
 import ClubCard from '../components/ClubCard';
@@ -14,21 +12,28 @@ type Club = {
 const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [clubs, setClubs] = useState<Club[]>([]);
+  const [loading, setLoading] = useState(true);  // Added loading state
 
   useEffect(() => {
     // Fetch clubs data when the component mounts
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clubs`)
       .then(res => res.json())
-      .then(data => setClubs(data))
-      .catch(error => console.error("Failed to fetch clubs:", error));
+      .then(data => {
+        setClubs(data);
+        setLoading(false);  // Set loading to false once data is fetched
+      })
+      .catch(error => {
+        console.error("Failed to fetch clubs:", error);
+        setLoading(false);  // Set loading to false even if there's an error
+      });
   }, []);
 
   const filteredClubs = clubs.filter(club => club.name.toLowerCase().includes(searchTerm.toLowerCase())); 
 
   return (
     <Layout>
-            {/* Hero Section */}
-            <div className="bg-gray-200 py-12 mb-8 rounded-xl shadow-md">
+{/* Hero Section */}
+<div className="bg-gray-200 py-12 mb-8 rounded-xl shadow-md">
         <h2 className="text-center text-cyan-500 text-4xl mb-4">Welcome to Aggie Clubs!</h2>
         <p className="text-center text-gray-600 text-xl mb-8">
           Discover the most popular student-run clubs at UC Davis. Join a community, pursue a hobby, or simply explore what's out there.
@@ -45,15 +50,17 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {filteredClubs.map((club) => (
-        <ClubCard key={club.id} club={club} />
-      ))}
-    </ul>
-
+      {loading ? (
+        <p className="text-center my-4 text-cyan-500">Loading clubs... (refresh if this takes too long)</p>
+      ) : (
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {filteredClubs.map((club) => (
+            <ClubCard key={club.id} club={club} />
+          ))}
+        </ul>
+      )}
     </Layout>
   );
 };
-
 
 export default Home;
