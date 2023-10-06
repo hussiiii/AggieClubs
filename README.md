@@ -18,7 +18,7 @@ If for any reason the clubs aren't showing up, just refresh the page.
 2. Backend is built with framework of choice ✅
    - I used Next.js for the backend, and Firebase (FireStore) for the cloud database 
 3. Frontend pulls data from the backend ✅
-   - On the homescreen, the club lists that show up are pulling data from various API folders (the backend) and displaying 
+   - On the homescreen, the club lists that show up are pulling data from various API folders (the backend) and displaying them 
 4. User interacts with the frontend ✅
    - Users can click on the clubs to view more info
 5. Frontend sends data to the backend ✅
