@@ -1,0 +1,3 @@
+These are deprecated. Before using Firebase for cloudstorage, I decided to just store the club and event info via JSON files. 
+
+It worked well, but I was having trouble deploying it on Vercel, so I switched to FireBase. 

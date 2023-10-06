@@ -12,10 +12,10 @@ type Club = {
 const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [clubs, setClubs] = useState<Club[]>([]);
-  const [loading, setLoading] = useState(true);  // Added loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    // Fetch clubs data when the component mounts
+    // Fetch clubs data 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clubs`)
       .then(res => res.json())
       .then(data => {
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
       })
       .catch(error => {
         console.error("Failed to fetch clubs:", error);
-        setLoading(false);  // Set loading to false even if there's an error
+        setLoading(false);  
       });
   }, []);
 

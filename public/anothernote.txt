@@ -1,0 +1,1 @@
+if I had global images I wanted to use on different pages, I think I would store them here

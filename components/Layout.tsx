@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       }
     });
 
-    // Cleanup the authentication listener on component unmount
+    // Cleanup the authentication listener on component unmount (yeah wtf does this mean?)
     return () => unsubscribe();
   }, []);
 

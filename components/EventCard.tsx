@@ -70,3 +70,4 @@ const EventCard: React.FC<EventCardProps> = ({ event, isAuthenticated }) => {
 };
 
 export default EventCard;
+
